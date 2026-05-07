@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bingo Royal Game</title>
+
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+    padding-top:80px;
+}
+
+h1{
+    color:gold;
+    font-size:45px;
+}
+
+.game-box{
+    background:#222;
+    width:300px;
+    margin:auto;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 20px gold;
+}
+
+button{
+    background:gold;
+    border:none;
+    padding:15px 30px;
+    font-size:20px;
+    border-radius:10px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+#result{
+    margin-top:20px;
+    font-size:30px;
+    color:lime;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎰 Bingo Royal 🎰</h1>
+
+<div class="game-box">
+
+<h2>Spin Machine</h2>
+
+<button onclick="playGame()">SPIN</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function playGame(){
+
+let items = ["7️⃣","💎","🍒","⭐"];
+
+let a = items[Math.floor(Math.random()*4)];
+let b = items[Math.floor(Math.random()*4)];
+let c = items[Math.floor(Math.random()*4)];
+
+document.getElementById("result").innerHTML =
+a + " " + b + " " + c;
+
+}
+
+</script>
+
+</body>
+</html>
