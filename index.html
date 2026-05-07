@@ -1,54 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bingo Royal</title>
+<title>Bingo Royal</title>
 
-  <style>
-    body{
-      background:#111;
-      color:white;
-      text-align:center;
-      font-family:Arial;
-      padding-top:100px;
-    }
+<style>
+body{
+    margin:0;
+    background:#0a0a0a;
+    font-family:Arial;
+    color:white;
+}
 
-    h1{
-      font-size:50px;
-      color:gold;
-    }
+.topbar{
+    background:#111;
+    padding:15px;
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+    color:gold;
+    box-shadow:0 0 15px gold;
+}
 
-    p{
-      font-size:20px;
-      color:#ddd;
-    }
+.container{
+    padding:20px;
+}
 
-    button{
-      background:gold;
-      color:black;
-      border:none;
-      padding:15px 35px;
-      font-size:20px;
-      border-radius:12px;
-      cursor:pointer;
-    }
+.room{
+    background:#1b1b1b;
+    border:2px solid gold;
+    border-radius:20px;
+    padding:20px;
+    margin-top:20px;
+    box-shadow:0 0 15px gold;
+}
 
-    button:hover{
-      background:white;
-    }
-  </style>
+.room h2{
+    color:gold;
+}
+
+.playbtn{
+    background:gold;
+    color:black;
+    border:none;
+    padding:12px 25px;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.playbtn:hover{
+    background:white;
+}
+
+.coins{
+    float:right;
+    color:lime;
+    font-size:20px;
+}
+</style>
 </head>
 
 <body>
 
-  <h1>🎰 Bingo Royal 🎰</h1>
+<div class="topbar">
+🎰 Bingo Royal 🎰
+<span class="coins">💰 5000</span>
+</div>
 
-  <p>Welcome to the best casino style website</p>
+<div class="container">
 
-  <br>
+<div class="room">
+<h2>Beginner Room</h2>
+<p>Entry: 100 Coins</p>
+<button class="playbtn">PLAY</button>
+</div>
 
-  <a href="https://google.com">
-    <button>Play Now</button>
-  </a>
+<div class="room">
+<h2>VIP Room</h2>
+<p>Entry: 1000 Coins</p>
+<button class="playbtn">PLAY</button>
+</div>
+
+<div class="room">
+<h2>Royal Room</h2>
+<p>Entry: 5000 Coins</p>
+<button class="playbtn">PLAY</button>
+</div>
+
+</div>
 
 </body>
 </html>
