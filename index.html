@@ -1,5 +1,95 @@
-<button onclick="window.location.href='beginner.html'">PLAY</button>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bingo Royal</title>
 
-<button onclick="window.location.href='vip.html'">PLAY</button>
+<style>
+body{
+background:#000;
+color:white;
+font-family:Arial;
+margin:0;
+}
 
-<button onclick="window.location.href='royal.html'">PLAY</button>
+.header{
+background:#111;
+padding:15px;
+text-align:center;
+color:gold;
+font-size:28px;
+font-weight:bold;
+border-bottom:2px solid gold;
+}
+
+.coins{
+position:absolute;
+right:20px;
+top:18px;
+color:lime;
+font-size:20px;
+}
+
+.room{
+background:#111;
+margin:20px;
+padding:25px;
+border:2px solid gold;
+border-radius:20px;
+box-shadow:0 0 20px gold;
+}
+
+.room h2{
+color:gold;
+}
+
+button{
+background:gold;
+border:none;
+padding:12px 25px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:orange;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+🎰 Bingo Royal 🎰
+<div class="coins">💰 5000</div>
+</div>
+
+<div class="room">
+<h2>Beginner Room</h2>
+<p>Entry: 100 Coins</p>
+
+<button onclick="window.location.href='beginner.html'">
+PLAY
+</button>
+</div>
+
+<div class="room">
+<h2>VIP Room</h2>
+<p>Entry: 1000 Coins</p>
+
+<button onclick="window.location.href='vip.html'">
+PLAY
+</button>
+</div>
+
+<div class="room">
+<h2>Royal Room</h2>
+<p>Entry: 5000 Coins</p>
+
+<button onclick="window.location.href='royal.html'">
+PLAY
+</button>
+</div>
+
+</body>
+</html>
