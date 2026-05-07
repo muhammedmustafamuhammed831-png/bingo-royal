@@ -1,3 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bingo Royal</title>
+
+<style>
+body{
+    background:#000;
+    color:white;
+    font-family:Arial;
+    margin:0;
+}
+
+.header{
+    background:#111;
+    padding:15px;
+    text-align:center;
+    color:gold;
+    font-size:28px;
+    font-weight:bold;
+    border-bottom:2px solid gold;
+}
+
+.coins{
+    position:absolute;
+    top:18px;
+    right:15px;
+    color:lime;
+    font-weight:bold;
+}
+
+.room{
+    background:#111;
+    border:2px solid gold;
+    border-radius:20px;
+    margin:20px;
+    padding:20px;
+    box-shadow:0 0 20px gold;
+}
+
+.room h2{
+    color:gold;
+}
+
+button{
+    background:gold;
+    color:black;
+    border:none;
+    padding:12px 25px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:orange;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+🎰 Bingo Royal 🎰
+</div>
+
+<div class="coins">
+💰 5000
+</div>
+
+<div class="room">
+<h2>Beginner Room</h2>
+<p>Entry: 100 Coins</p>
+
+<button onclick="playRoom('Beginner Room')">
+PLAY
+</button>
+</div>
+
+<div class="room">
+<h2>VIP Room</h2>
+<p>Entry: 1000 Coins</p>
+
+<button onclick="playRoom('VIP Room')">
+PLAY
+</button>
+</div>
+
+<div class="room">
+<h2>Royal Room</h2>
+<p>Entry: 5000 Coins</p>
+
+<button onclick="playRoom('Royal Room')">
+PLAY
+</button>
+</div>
+
 <script>
 function playRoom(room){
 
@@ -12,5 +109,9 @@ function playRoom(room){
     if(room === "Royal Room"){
         window.location.href = "royal.html";
     }
+
 }
 </script>
+
+</body>
+</html>
