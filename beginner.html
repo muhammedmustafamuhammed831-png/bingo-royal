@@ -2,22 +2,124 @@
 <html>
 <head>
 <title>Beginner Room</title>
+
 <style>
+
 body{
-background:black;
-color:gold;
-text-align:center;
-font-family:Arial;
-padding-top:100px;
+    background:black;
+    color:white;
+    font-family:Arial;
+    text-align:center;
 }
+
+h1{
+    color:gold;
+    margin-top:30px;
+}
+
+.board{
+    display:grid;
+    grid-template-columns:repeat(5,70px);
+    gap:10px;
+    justify-content:center;
+    margin-top:40px;
+}
+
+.cell{
+    width:70px;
+    height:70px;
+    background:#111;
+    border:2px solid gold;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.cell:hover{
+    background:gold;
+    color:black;
+}
+
+button{
+    margin-top:30px;
+    padding:15px 30px;
+    font-size:20px;
+    border:none;
+    border-radius:10px;
+    background:gold;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#number{
+    margin-top:20px;
+    font-size:40px;
+    color:lime;
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>🎰 Beginner Room 🎰</h1>
+<h1>🎰 Beginner Bingo Room 🎰</h1>
 
-<p>Welcome Player</p>
+<div id="number">0</div>
+
+<button onclick="drawNumber()">DRAW NUMBER</button>
+
+<div class="board">
+
+<div class="cell">1</div>
+<div class="cell">2</div>
+<div class="cell">3</div>
+<div class="cell">4</div>
+<div class="cell">5</div>
+
+<div class="cell">6</div>
+<div class="cell">7</div>
+<div class="cell">8</div>
+<div class="cell">9</div>
+<div class="cell">10</div>
+
+<div class="cell">11</div>
+<div class="cell">12</div>
+<div class="cell">13</div>
+<div class="cell">14</div>
+<div class="cell">15</div>
+
+<div class="cell">16</div>
+<div class="cell">17</div>
+<div class="cell">18</div>
+<div class="cell">19</div>
+<div class="cell">20</div>
+
+<div class="cell">21</div>
+<div class="cell">22</div>
+<div class="cell">23</div>
+<div class="cell">24</div>
+<div class="cell">25</div>
+
+</div>
+
+<script>
+
+function drawNumber(){
+
+let random =
+Math.floor(Math.random()*25)+1;
+
+document.getElementById("number")
+.innerHTML = random;
+
+}
+
+</script>
 
 </body>
 </html>
