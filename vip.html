@@ -1,23 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Beginner Room</title>
+<title>VIP Bingo Room</title>
+
 <style>
 body{
 background:black;
-color:gold;
-text-align:center;
+color:white;
 font-family:Arial;
-padding-top:100px;
+text-align:center;
+}
+
+h1{
+color:gold;
+margin-top:30px;
+}
+
+#number{
+font-size:70px;
+color:lime;
+margin:20px;
+}
+
+button{
+background:gold;
+padding:15px 30px;
+border:none;
+border-radius:10px;
+font-size:20px;
+font-weight:bold;
+margin:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(5,70px);
+gap:10px;
+justify-content:center;
+margin-top:20px;
+}
+
+.box{
+width:70px;
+height:70px;
+border:2px solid gold;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+font-size:25px;
+}
+
+.active{
+background:lime;
+color:black;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎰 Beginner Room 🎰</h1>
+<h1>💎 VIP Bingo Room 💎</h1>
 
-<p>Welcome Player</p>
+<div id="number">0</div>
+
+<button onclick="drawNumber()">DRAW NUMBER</button>
+
+<div class="grid" id="grid"></div>
+
+<script>
+let grid=document.getElementById("grid");
+
+for(let i=1;i<=50;i++){
+let box=document.createElement("div");
+box.className="box";
+box.innerHTML=i;
+box.id="num"+i;
+grid.appendChild(box);
+}
+
+function drawNumber(){
+let num=Math.floor(Math.random()*50)+1;
+
+document.getElementById("number").innerHTML=num;
+
+document.getElementById("num"+num)
+.classList.add("active");
+}
+</script>
 
 </body>
 </html>
