@@ -4,72 +4,78 @@
 <title>Beginner Bingo Room</title>
 
 <style>
+
 body{
-    background:black;
-    color:white;
-    font-family:Arial;
-    text-align:center;
-    margin:0;
+background:black;
+color:white;
+font-family:Arial;
+text-align:center;
+margin:0;
 }
 
 .header{
-    background:#111;
-    padding:15px;
-    color:gold;
-    font-size:30px;
-    font-weight:bold;
-    border-bottom:2px solid gold;
+background:#111;
+padding:15px;
+font-size:30px;
+color:gold;
+font-weight:bold;
+border-bottom:2px solid gold;
 }
 
 #number{
-    font-size:60px;
-    color:lime;
-    margin-top:20px;
-    font-weight:bold;
+font-size:70px;
+color:lime;
+margin-top:20px;
+font-weight:bold;
 }
 
 button{
-    background:gold;
-    color:black;
-    border:none;
-    padding:15px 30px;
-    font-size:20px;
-    border-radius:10px;
-    margin-top:20px;
-    font-weight:bold;
+background:gold;
+color:black;
+border:none;
+padding:15px 30px;
+font-size:20px;
+border-radius:10px;
+margin-top:20px;
+font-weight:bold;
+cursor:pointer;
 }
 
 .grid{
-    width:320px;
-    margin:30px auto;
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:10px;
+width:340px;
+margin:30px auto;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:10px;
 }
 
 .cell{
-    border:2px solid gold;
-    height:55px;
-    line-height:55px;
-    font-size:22px;
-    border-radius:10px;
-    background:#111;
-    transition:0.3s;
+height:60px;
+background:#111;
+border:2px solid gold;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+font-weight:bold;
+transition:0.3s;
 }
 
 .active{
-    background:lime;
-    color:black;
-    font-weight:bold;
-    transform:scale(1.1);
+background:lime;
+color:black;
+transform:scale(1.1);
 }
 
 #winner{
-    color:gold;
-    font-size:40px;
-    margin-top:20px;
-    display:none;
+display:none;
+font-size:40px;
+color:gold;
+margin-top:20px;
+font-weight:bold;
 }
+
 </style>
 </head>
 
@@ -91,53 +97,76 @@ DRAW NUMBER
 🎉 BINGO WINNER 🎉
 </div>
 
+<audio id="sound"
+src="https://www.soundjay.com/buttons/sounds/button-09.mp3">
+</audio>
+
 <script>
 
-let grid = document.getElementById("grid");
+let numbers=[];
+
+for(let i=1;i<=25;i++){
+numbers.push(i);
+}
+
+let grid=document.getElementById("grid");
 
 for(let i=1;i<=25;i++){
 
-    let cell = document.createElement("div");
+let cell=document.createElement("div");
 
-    cell.classList.add("cell");
+cell.classList.add("cell");
 
-    cell.innerText=i;
+cell.innerHTML=i;
 
-    cell.id="cell"+i;
+cell.id="cell"+i;
 
-    cell.onclick=function(){
+grid.appendChild(cell);
 
-        cell.classList.toggle("active");
-
-        checkWin();
-
-    }
-
-    grid.appendChild(cell);
 }
 
 function drawNumber(){
 
-    let random=Math.floor(Math.random()*25)+1;
+document.getElementById("sound").play();
 
-    document.getElementById("number").innerText=random;
+if(numbers.length==0){
 
-    let box=document.getElementById("cell"+random);
+alert("Game Finished");
 
-    box.classList.add("active");
+return;
 
-    checkWin();
 }
 
-function checkWin(){
+let randomIndex=
+Math.floor(Math.random()*numbers.length);
 
-    let active=document.querySelectorAll(".active");
+let num=numbers[randomIndex];
 
-    if(active.length>=10){
+numbers.splice(randomIndex,1);
 
-        document.getElementById("winner").style.display="block";
+document.getElementById("number")
+.innerHTML=num;
 
-    }
+let box=document.getElementById("cell"+num);
+
+box.classList.add("active");
+
+checkWinner();
+
+}
+
+function checkWinner(){
+
+let active=
+document.querySelectorAll(".active");
+
+if(active.length>=25){
+
+document.getElementById("winner")
+.style.display="block";
+
+}
+
 }
 
 </script>
