@@ -1,150 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Beginner Bingo Room</title>
-
-<style>
-body{
-background:black;
-color:white;
-font-family:Arial;
-text-align:center;
-margin:0;
-}
-
-.header{
-background:#111;
-padding:15px;
-font-size:30px;
-color:gold;
-font-weight:bold;
-border-bottom:2px solid gold;
-}
-
-#number{
-font-size:70px;
-color:lime;
-margin-top:20px;
-font-weight:bold;
-}
-
-button{
-background:gold;
-color:black;
-border:none;
-padding:15px 30px;
-font-size:20px;
-border-radius:10px;
-margin-top:20px;
-font-weight:bold;
-}
-
-.grid{
-width:340px;
-margin:30px auto;
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:10px;
-}
-
-.cell{
-height:60px;
-background:#111;
-border:2px solid gold;
-border-radius:10px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-font-weight:bold;
-}
-
-.active{
-background:lime;
-color:black;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="header">
-🎰 Beginner Bingo Room 🎰
-</div>
-
-<div id="number">0</div>
-
-<button onclick="drawNumber()">
-DRAW NUMBER
-</button>
-
-<div class="grid" id="grid"></div>
-
-<audio id="sound">
-<source src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" type="audio/ogg">
-</audio>
-
 <script>
+let drawn = [];
 
-let numbers=[];
+function drawNumber() {
 
-for(let i=1;i<=25;i++){
-numbers.push(i);
+  if (drawn.length >= 25) return;
+
+  let num;
+
+  do {
+    num = Math.floor(Math.random() * 25) + 1;
+  } while (drawn.includes(num));
+
+  drawn.push(num);
+
+  document.getElementById("current").innerText = num;
+
+  updateBoard();
+
+  checkWinner();
 }
 
-let grid=document.getElementById("grid");
+function updateBoard() {
 
-for(let i=1;i<=25;i++){
-
-grid.innerHTML +=
-`<div class="cell" id="n${i}">${i}</div>`;
-
-}
-
-function drawNumber(){
-
-document.getElementById("sound").play();
-
-if(numbers.length==0){
-alert("Game Finished");
-return;
-}
-
-let randomIndex=
-Math.floor(Math.random()*numbers.length);
-
-let num=numbers[randomIndex];
-
-numbers.splice(randomIndex,1);
-
-document.getElementById("number")
-.innerHTML=num;
-
-document.getElementById("n"+num)
-.classList.add("active");
-
-}
-
-</script>
-<script>
-function checkWinner() {
   const boxes = document.querySelectorAll(".number");
 
-  let win = true;
-
   boxes.forEach(box => {
-    if (!box.classList.contains("active")) {
-      win = false;
-    }
-  });
 
-  if (win) {
-    alert("🎉 YOU WIN 🎉");
-  }
+    const value = parseInt(box.innerText);
+
+    if (drawn.includes(value)) {
+      box.classList.add("active");
+    }
+
+  });
 }
 
-setInterval(checkWinner, 1000);
+function checkWinner() {
+
+  const active = document.querySelectorAll(".active");
+
+  if (active.length == 25) {
+
+    alert("🎉 YOU WIN 🎉");
+
+  }
+}
 </script>
-</body>
-</html>
