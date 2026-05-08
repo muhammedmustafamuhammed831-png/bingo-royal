@@ -104,6 +104,8 @@ DRAW NUMBER
 
 <script>
 
+const sound = new Audio("https://www.soundjay.com/buttons/sounds/button-3.mp3");
+
 let drawn = [];
 
 function drawNumber(){
@@ -118,6 +120,8 @@ num = Math.floor(Math.random()*25)+1;
 while(drawn.includes(num));
 
 drawn.push(num);
+
+sound.play();
 
 document.getElementById("current").innerText = num;
 
