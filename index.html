@@ -4,29 +4,28 @@
 <title>Bingo Royal</title>
 
 <style>
+
 body{
 background:#000;
 color:white;
 font-family:Arial;
 margin:0;
+text-align:center;
 }
 
 .header{
 background:#111;
-padding:15px;
-text-align:center;
+padding:20px;
+font-size:30px;
 color:gold;
-font-size:28px;
 font-weight:bold;
 border-bottom:2px solid gold;
 }
 
 .coins{
-position:absolute;
-right:20px;
-top:18px;
+margin-top:10px;
 color:lime;
-font-size:20px;
+font-size:22px;
 }
 
 .room{
@@ -45,8 +44,9 @@ color:gold;
 button{
 background:gold;
 border:none;
-padding:12px 25px;
+padding:15px 30px;
 border-radius:10px;
+font-size:18px;
 font-weight:bold;
 cursor:pointer;
 }
@@ -54,42 +54,89 @@ cursor:pointer;
 button:hover{
 background:orange;
 }
+
 </style>
 </head>
 
 <body>
 
 <div class="header">
+
 🎰 Bingo Royal 🎰
-<div class="coins">💰 5000</div>
+
+<div class="coins" id="coins">
+💰 5000
+</div>
+
 </div>
 
 <div class="room">
+
 <h2>Beginner Room</h2>
+
 <p>Entry: 100 Coins</p>
 
-<button onclick="window.location.href='beginner.html'">
+<button onclick="playGame('beginner.html',100)">
 PLAY
 </button>
+
 </div>
 
 <div class="room">
+
 <h2>VIP Room</h2>
+
 <p>Entry: 1000 Coins</p>
 
-<button onclick="window.location.href='vip.html'">
+<button onclick="playGame('vip.html',1000)">
 PLAY
 </button>
+
 </div>
 
 <div class="room">
+
 <h2>Royal Room</h2>
+
 <p>Entry: 5000 Coins</p>
 
-<button onclick="window.location.href='royal.html'">
+<button onclick="playGame('royal.html',5000)">
 PLAY
 </button>
+
 </div>
+
+<script>
+
+if(!localStorage.getItem("coins")){
+localStorage.setItem("coins",5000);
+}
+
+document.getElementById("coins").innerText =
+"💰 " + localStorage.getItem("coins");
+
+function playGame(page,cost){
+
+let coins =
+parseInt(localStorage.getItem("coins"));
+
+if(coins < cost){
+
+alert("❌ Not Enough Coins");
+
+return;
+
+}
+
+coins -= cost;
+
+localStorage.setItem("coins",coins);
+
+window.location.href = page;
+
+}
+
+</script>
 
 </body>
 </html>
