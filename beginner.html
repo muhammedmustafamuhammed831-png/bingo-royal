@@ -127,6 +127,24 @@ document.getElementById("n"+num)
 }
 
 </script>
+<script>
+function checkWinner() {
+  const boxes = document.querySelectorAll(".number");
 
+  let win = true;
+
+  boxes.forEach(box => {
+    if (!box.classList.contains("active")) {
+      win = false;
+    }
+  });
+
+  if (win) {
+    alert("🎉 YOU WIN 🎉");
+  }
+}
+
+setInterval(checkWinner, 1000);
+</script>
 </body>
 </html>
