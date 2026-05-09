@@ -1,0 +1,85 @@
+export default function KonKanHomepage() { return ( <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-black to-zinc-950 text-white"> <header className="flex items-center justify-between p-6 border-b border-zinc-800"> <h1 className="text-3xl font-bold tracking-widest">🃏 کۆن کان</h1>
+
+<div className="flex gap-3">
+      <button className="px-5 py-2 rounded-2xl bg-zinc-800 hover:bg-zinc-700 transition">
+        Kurdish
+      </button>
+      <button className="px-5 py-2 rounded-2xl bg-zinc-800 hover:bg-zinc-700 transition">
+        العربية
+      </button>
+    </div>
+  </header>
+
+  <main className="max-w-7xl mx-auto px-6 py-20">
+    <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <h2 className="text-6xl font-black leading-tight mb-6">
+          یارییەکی 3D <br />
+          Online بۆ <span className="text-yellow-400">کۆن کان</span>
+        </h2>
+
+        <p className="text-zinc-400 text-xl leading-9 mb-8">
+          یارییەکی تایبەتی کوردی و عێراقی بە شێوەیەکی مۆدێرن،
+          online multiplayer، 3D cards و chat.
+        </p>
+
+        <div className="flex flex-wrap gap-4">
+          <button className="px-8 py-4 rounded-2xl bg-yellow-500 hover:bg-yellow-400 text-black font-bold text-lg transition shadow-2xl">
+            دەستپێکردن
+          </button>
+
+          <button className="px-8 py-4 rounded-2xl bg-zinc-800 hover:bg-zinc-700 font-bold text-lg transition">
+            دروستکردنی Room
+          </button>
+        </div>
+      </div>
+
+      <div className="relative flex justify-center">
+        <div className="w-[340px] h-[500px] bg-zinc-900 rounded-[40px] border border-zinc-700 shadow-2xl rotate-[-10deg] absolute top-10" />
+
+        <div className="w-[340px] h-[500px] bg-gradient-to-b from-red-500 to-red-700 rounded-[40px] border border-red-300 shadow-2xl rotate-[10deg] flex items-center justify-center text-7xl font-black">
+          ♠️♦️
+        </div>
+      </div>
+    </div>
+
+    <section className="mt-32 grid md:grid-cols-3 gap-8">
+      <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+        <h3 className="text-2xl font-bold mb-4">🌐 Online</h3>
+        <p className="text-zinc-400 leading-8">
+          یاری لەگەڵ هاوڕێکانت بە Real-Time.
+        </p>
+      </div>
+
+      <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+        <h3 className="text-2xl font-bold mb-4">🎮 3D Cards</h3>
+        <p className="text-zinc-400 leading-8">
+          animation و کارتە 3D ـە واقعییەکان.
+        </p>
+      </div>
+
+      <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+        <h3 className="text-2xl font-bold mb-4">💬 Chat</h3>
+        <p className="text-zinc-400 leading-8">
+          چاتکردن لە ناو یاریەکەدا.
+        </p>
+      </div>
+    </section>
+
+    <section className="mt-32 text-center">
+      <h2 className="text-5xl font-black mb-6">
+        بە زوویی Multiplayer دەگات
+      </h2>
+
+      <p className="text-zinc-400 text-xl max-w-3xl mx-auto leading-9">
+        room system، ranking، coin system و tournament لە وەشانی داهاتوودا.
+      </p>
+    </section>
+  </main>
+
+  <footer className="border-t border-zinc-800 py-8 text-center text-zinc-500">
+    © 2026 Kon Kan - Iraqi Kurdish Card Game
+  </footer>
+</div>
+
+) }
