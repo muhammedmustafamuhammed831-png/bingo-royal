@@ -1,32 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 
 function Card({ suit, value }) {
   return (
     <div style={{
-      width: '90px',
-      height: '130px',
-      background: 'white',
-      borderRadius: '14px',
-      color: 'black',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      padding: '10px',
-      fontWeight: 'bold',
-      boxShadow: '0 10px 20px rgba(0,0,0,0.4)'
+      width:'90px',
+      height:'130px',
+      background:'white',
+      borderRadius:'14px',
+      color:'black',
+      display:'flex',
+      flexDirection:'column',
+      justifyContent:'space-between',
+      padding:'10px',
+      fontWeight:'bold',
+      boxShadow:'0 10px 20px rgba(0,0,0,0.5)'
     }}>
       <span>{value}</span>
 
       <span style={{
-        fontSize: '30px',
-        textAlign: 'center'
+        fontSize:'30px',
+        textAlign:'center'
       }}>
         {suit}
       </span>
 
       <span style={{
-        textAlign: 'right'
+        textAlign:'right'
       }}>
         {value}
       </span>
@@ -34,58 +34,83 @@ function Card({ suit, value }) {
   )
 }
 
-function App() {
+function Lobby({ onStart }) {
+  const [roomCode] = useState(
+    Math.random().toString(36).substring(2, 7).toUpperCase()
+  )
+
   return (
     <div style={{
-      background:'#0b3d0b',
-      color:'white',
-      minHeight:'100vh',
       display:'flex',
-      justifyContent:'center',
-      alignItems:'center',
       flexDirection:'column',
-      fontFamily:'sans-serif'
+      alignItems:'center',
+      gap:'20px'
     }}>
 
       <h1 style={{
-        fontSize:'50px',
-        marginBottom:'10px'
+        fontSize:'50px'
       }}>
         🃏 Konkan
       </h1>
 
-      <p style={{
-        color:'#ddd',
-        marginBottom:'40px'
-      }}>
-        Kurdish Online Card Game
-      </p>
+      <p>Kurdish Online Card Game</p>
 
       <div style={{
         display:'flex',
         gap:'20px',
-        marginBottom:'40px'
+        margin:'30px'
       }}>
         <Card suit="♠️" value="Q" />
         <Card suit="♦️" value="K" />
         <Card suit="♥️" value="A" />
       </div>
 
-      <button style={{
-        padding:'16px 40px',
-        borderRadius:'18px',
-        border:'none',
-        background:'gold',
-        color:'black',
-        fontWeight:'bold',
-        fontSize:'20px',
-        cursor:'pointer'
+      <div style={{
+        background:'#111',
+        padding:'20px',
+        borderRadius:'14px',
+        width:'300px',
+        textAlign:'center'
       }}>
-        ▶ Play Now
+        <h2>🎮 Room Code</h2>
+
+        <div style={{
+          fontSize:'32px',
+          color:'gold',
+          marginTop:'10px',
+          letterSpacing:'4px'
+        }}>
+          {roomCode}
+        </div>
+      </div>
+
+      <button
+        onClick={onStart}
+        style={{
+          padding:'16px 40px',
+          borderRadius:'18px',
+          border:'none',
+          background:'gold',
+          color:'black',
+          fontWeight:'bold',
+          fontSize:'20px',
+          cursor:'pointer'
+        }}
+      >
+        ▶ Start Game
       </button>
 
     </div>
   )
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+function GameTable() {
+  return (
+    <div style={{
+      display:'flex',
+      flexDirection:'column',
+      alignItems:'center',
+      gap:'30px'
+    }}>
+
+      <h1
