@@ -24,7 +24,11 @@ export default function App() {
 
     for (let suit of suits) {
       for (let value of values) {
-        deck.push(value + suit);
+        deck.push({
+          value,
+          suit,
+          text: value + suit,
+        });
       }
     }
 
@@ -33,16 +37,23 @@ export default function App() {
 
   const firstDeck = createDeck();
 
-  const [deck, setDeck] = useState(firstDeck.slice(14));
+  const startCard = firstDeck[0];
+
+  const [deck, setDeck] = useState(firstDeck.slice(15));
 
   const [playerCards, setPlayerCards] = useState(
-    firstDeck.slice(0, 14)
+    firstDeck.slice(1, 15)
   );
 
-  const [playedCard, setPlayedCard] = useState("🂠");
+  const [playedCard, setPlayedCard] = useState(startCard);
+
+  const [message, setMessage] = useState("");
 
   const drawCard = () => {
-    if (deck.length === 0) return;
+    if (deck.length === 0) {
+      setMessage("No cards left");
+      return;
+    }
 
     const newDeck = [...deck];
 
@@ -51,14 +62,30 @@ export default function App() {
     setDeck(newDeck);
 
     setPlayerCards([...playerCards, newCard]);
+
+    setMessage("You drew a card");
   };
 
-  const playCard = (card) => {
-    setPlayedCard(card);
+  const playCard = (card, index) => {
+    const sameSuit = card.suit === playedCard.suit;
 
-    setPlayerCards(
-      playerCards.filter((c, index) => index !== playerCards.indexOf(card))
-    );
+    const sameValue = card.value === playedCard.value;
+
+    if (sameSuit || sameValue) {
+      setPlayedCard(card);
+
+      setPlayerCards(
+        playerCards.filter((_, i) => i !== index)
+      );
+
+      setMessage("Card Played ✅");
+
+      if (playerCards.length === 1) {
+        setMessage("YOU WIN 🎉");
+      }
+    } else {
+      setMessage("Wrong Card ❌");
+    }
   };
 
   return (
@@ -75,7 +102,7 @@ export default function App() {
         🃏 Konkan Online
       </h1>
 
-      <h2 style={{ fontSize: 40 }}>
+      <h2 style={{ fontSize: 35 }}>
         Cards Left: {deck.length}
       </h2>
 
@@ -83,18 +110,47 @@ export default function App() {
         onClick={drawCard}
         style={{
           padding: 20,
-          fontSize: 35,
+          fontSize: 30,
           borderRadius: 15,
           background: "yellow",
           fontWeight: "bold",
-          marginBottom: 30,
           border: "none",
+          marginBottom: 20,
         }}
       >
         Draw Card
       </button>
 
-      <h2 style={{ fontSize: 45 }}>
+      <h2>{message}</h2>
+
+      <h2
+        style={{
+          marginTop: 30,
+          fontSize: 40,
+        }}
+      >
+        Played Card
+      </h2>
+
+      <div
+        style={{
+          background: "white",
+          color: "black",
+          width: 140,
+          height: 190,
+          borderRadius: 20,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: 50,
+          fontWeight: "bold",
+          marginBottom: 40,
+        }}
+      >
+        {playedCard.text}
+      </div>
+
+      <h2 style={{ fontSize: 40 }}>
         Your Cards ({playerCards.length})
       </h2>
 
@@ -108,7 +164,7 @@ export default function App() {
         {playerCards.map((card, index) => (
           <div
             key={index}
-            onClick={() => playCard(card)}
+            onClick={() => playCard(card, index)}
             style={{
               background: "white",
               color: "black",
@@ -117,40 +173,13 @@ export default function App() {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              fontSize: 50,
+              fontSize: 45,
               fontWeight: "bold",
             }}
           >
-            {card}
+            {card.text}
           </div>
         ))}
-      </div>
-
-      <h2
-        style={{
-          marginTop: 40,
-          fontSize: 45,
-        }}
-      >
-        Played Card
-      </h2>
-
-      <div
-        style={{
-          background: "white",
-          color: "black",
-          width: 150,
-          height: 200,
-          borderRadius: 20,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: 60,
-          fontWeight: "bold",
-          marginBottom: 40,
-        }}
-      >
-        {playedCard}
       </div>
     </div>
   );
