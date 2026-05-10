@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export default function App() {
   const suits = ["♠", "♥", "♦", "♣"];
+
   const values = [
     "A",
     "2",
@@ -30,16 +31,24 @@ export default function App() {
     return deck.sort(() => Math.random() - 0.5);
   };
 
-  const [deck, setDeck] = useState(createDeck());
+  const firstDeck = createDeck();
 
-  const [playerCards, setPlayerCards] = useState(deck.slice(0, 14));
+  const [deck, setDeck] = useState(firstDeck.slice(14));
 
-  const [playedCard, setPlayedCard] = useState(deck[20]);
+  const [playerCards, setPlayerCards] = useState(
+    firstDeck.slice(0, 14)
+  );
+
+  const [playedCard, setPlayedCard] = useState("🂠");
 
   const drawCard = () => {
     if (deck.length === 0) return;
 
-    const newCard = deck[playerCards.length + 1];
+    const newDeck = [...deck];
+
+    const newCard = newDeck.pop();
+
+    setDeck(newDeck);
 
     setPlayerCards([...playerCards, newCard]);
   };
@@ -47,7 +56,9 @@ export default function App() {
   const playCard = (card) => {
     setPlayedCard(card);
 
-    setPlayerCards(playerCards.filter((c) => c !== card));
+    setPlayerCards(
+      playerCards.filter((c, index) => index !== playerCards.indexOf(card))
+    );
   };
 
   return (
@@ -57,27 +68,35 @@ export default function App() {
         minHeight: "100vh",
         padding: 20,
         color: "white",
+        fontFamily: "Arial",
       }}
     >
-      <h1>🃏 Konkan Online</h1>
+      <h1 style={{ fontSize: 50 }}>
+        🃏 Konkan Online
+      </h1>
 
-      <h2>Cards Left: {52 - playerCards.length}</h2>
+      <h2 style={{ fontSize: 40 }}>
+        Cards Left: {deck.length}
+      </h2>
 
       <button
         onClick={drawCard}
         style={{
-          padding: 15,
-          fontSize: 20,
-          borderRadius: 10,
-          marginBottom: 20,
+          padding: 20,
+          fontSize: 35,
+          borderRadius: 15,
           background: "yellow",
           fontWeight: "bold",
+          marginBottom: 30,
+          border: "none",
         }}
       >
         Draw Card
       </button>
 
-      <h2>Your Cards ({playerCards.length})</h2>
+      <h2 style={{ fontSize: 45 }}>
+        Your Cards ({playerCards.length})
+      </h2>
 
       <div
         style={{
@@ -93,12 +112,12 @@ export default function App() {
             style={{
               background: "white",
               color: "black",
-              height: 140,
-              borderRadius: 15,
+              height: 180,
+              borderRadius: 20,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              fontSize: 40,
+              fontSize: 50,
               fontWeight: "bold",
             }}
           >
@@ -107,20 +126,28 @@ export default function App() {
         ))}
       </div>
 
-      <h2 style={{ marginTop: 40 }}>Played Card</h2>
+      <h2
+        style={{
+          marginTop: 40,
+          fontSize: 45,
+        }}
+      >
+        Played Card
+      </h2>
 
       <div
         style={{
           background: "white",
           color: "black",
-          width: 120,
-          height: 170,
-          borderRadius: 15,
+          width: 150,
+          height: 200,
+          borderRadius: 20,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          fontSize: 40,
+          fontSize: 60,
           fontWeight: "bold",
+          marginBottom: 40,
         }}
       >
         {playedCard}
