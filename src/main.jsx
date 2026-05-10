@@ -113,4 +113,44 @@ function GameTable() {
       gap:'30px'
     }}>
 
-      <h1
+      <h1>🔥 Game Started</h1>
+
+      <div style={{
+        display:'flex',
+        gap:'20px'
+      }}>
+        <Card suit="♣️" value="10" />
+        <Card suit="♥️" value="A" />
+        <Card suit="♠️" value="K" />
+      </div>
+
+      <p>Players Connected: 2</p>
+
+    </div>
+  )
+}
+
+function App() {
+  const [started, setStarted] = useState(false)
+
+  return (
+    <div style={{
+      background:'#0b3d0b',
+      color:'white',
+      minHeight:'100vh',
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center',
+      fontFamily:'sans-serif',
+      padding:'20px'
+    }}>
+      {
+        started
+          ? <GameTable />
+          : <Lobby onStart={() => setStarted(true)} />
+      }
+    </div>
+  )
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />)
