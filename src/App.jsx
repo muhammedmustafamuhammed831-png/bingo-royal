@@ -1,47 +1,52 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function App() {
   const suits = ["♠", "♥", "♦", "♣"];
   const values = [
-    "A", "2", "3", "4", "5", "6", "7",
-    "8", "9", "10", "J", "Q", "K"
+    "A",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "J",
+    "Q",
+    "K",
   ];
 
   const createDeck = () => {
     let deck = [];
 
-    for (let d = 0; d < 2; d++) {
-      for (let suit of suits) {
-        for (let value of values) {
-          deck.push(`${value}${suit}`);
-        }
+    for (let suit of suits) {
+      for (let value of values) {
+        deck.push(value + suit);
       }
     }
 
-    deck.push("🃏");
-    deck.push("🃏");
-
-    return deck;
+    return deck.sort(() => Math.random() - 0.5);
   };
 
-  const shuffleDeck = (deck) => {
-    return [...deck].sort(() => Math.random() - 0.5);
+  const [deck, setDeck] = useState(createDeck());
+
+  const [playerCards, setPlayerCards] = useState(deck.slice(0, 14));
+
+  const [playedCard, setPlayedCard] = useState(deck[20]);
+
+  const drawCard = () => {
+    if (deck.length === 0) return;
+
+    const newCard = deck[playerCards.length + 1];
+
+    setPlayerCards([...playerCards, newCard]);
   };
-
-  const [deck, setDeck] = useState([]);
-  const [playerCards, setPlayerCards] = useState([]);
-  const [playedCard, setPlayedCard] = useState("");
-
-  useEffect(() => {
-    const fullDeck = createDeck();
-    const shuffled = shuffleDeck(fullDeck);
-
-    setDeck(shuffled);
-    setPlayerCards(shuffled.slice(0, 14));
-  }, []);
 
   const playCard = (card) => {
     setPlayedCard(card);
+
     setPlayerCards(playerCards.filter((c) => c !== card));
   };
 
@@ -50,62 +55,75 @@ export default function App() {
       style={{
         background: "green",
         minHeight: "100vh",
-        padding: "20px",
+        padding: 20,
         color: "white",
-        fontFamily: "Arial",
       }}
     >
       <h1>🃏 Konkan Online</h1>
 
-      <h2>Total Cards: {deck.length}</h2>
+      <h2>Cards Left: {52 - playerCards.length}</h2>
+
+      <button
+        onClick={drawCard}
+        style={{
+          padding: 15,
+          fontSize: 20,
+          borderRadius: 10,
+          marginBottom: 20,
+          background: "yellow",
+          fontWeight: "bold",
+        }}
+      >
+        Draw Card
+      </button>
 
       <h2>Your Cards ({playerCards.length})</h2>
 
       <div
         style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "10px",
-          marginBottom: "30px",
+          display: "grid",
+          gridTemplateColumns: "repeat(3,1fr)",
+          gap: 15,
         }}
       >
         {playerCards.map((card, index) => (
-          <button
+          <div
             key={index}
             onClick={() => playCard(card)}
             style={{
-              width: "80px",
-              height: "120px",
-              borderRadius: "12px",
-              border: "none",
               background: "white",
-              fontSize: "28px",
+              color: "black",
+              height: 140,
+              borderRadius: 15,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: 40,
               fontWeight: "bold",
-              cursor: "pointer",
             }}
           >
             {card}
-          </button>
+          </div>
         ))}
       </div>
 
-      <h2>Played Card</h2>
+      <h2 style={{ marginTop: 40 }}>Played Card</h2>
 
       <div
         style={{
-          width: "120px",
-          height: "170px",
           background: "white",
           color: "black",
-          borderRadius: "20px",
+          width: 120,
+          height: 170,
+          borderRadius: 15,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          fontSize: "50px",
+          fontSize: 40,
           fontWeight: "bold",
         }}
       >
-        {playedCard || "🂠"}
+        {playedCard}
       </div>
     </div>
   );
