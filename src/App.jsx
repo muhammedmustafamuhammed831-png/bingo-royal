@@ -1,28 +1,81 @@
 import { useState } from "react";
 
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  onSnapshot,
+} from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCG4cUcG04E1f2moCnmEwG1UiUwHdHuUrs",
+  authDomain: "konkan-fc43e.firebaseapp.com",
+  projectId: "konkan-fc43e",
+  storageBucket: "konkan-fc43e.firebasestorage.app",
+  messagingSenderId: "707049357885",
+  appId: "1:707049357885:web:f0dab6834d2c4600846054",
+  measurementId: "G-E0Y2RRPVKX",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 export default function App() {
   const [name, setName] = useState("");
   const [roomCode, setRoomCode] = useState("");
+  const [players, setPlayers] = useState([]);
   const [joined, setJoined] = useState(false);
 
-  const createRoom = () => {
-    if (!name) {
-      alert("Enter your name");
-      return;
-    }
+  const createRoom = async () => {
+    if (!name) return alert("Enter your name");
 
-    const randomCode = Math.floor(1000 + Math.random() * 9000).toString();
-    setRoomCode(randomCode);
+    const code = Math.floor(1000 + Math.random() * 9000).toString();
+
+    await setDoc(doc(db, "rooms", code), {
+      players: [name],
+      createdAt: Date.now(),
+    });
+
+    setRoomCode(code);
     setJoined(true);
+
+    listenRoom(code);
   };
 
-  const joinRoom = () => {
+  const joinRoom = async () => {
     if (!name || !roomCode) {
-      alert("Fill all fields");
-      return;
+      return alert("Fill all fields");
     }
 
+    const roomRef = doc(db, "rooms", roomCode);
+
+    const roomSnap = await getDoc(roomRef);
+
+    if (!roomSnap.exists()) {
+      return alert("Room not found");
+    }
+
+    await updateDoc(roomRef, {
+      players: arrayUnion(name),
+    });
+
     setJoined(true);
+
+    listenRoom(roomCode);
+  };
+
+  const listenRoom = (code) => {
+    const roomRef = doc(db, "rooms", code);
+
+    onSnapshot(roomRef, (docSnap) => {
+      if (docSnap.exists()) {
+        setPlayers(docSnap.data().players || []);
+      }
+    });
   };
 
   if (joined) {
@@ -32,58 +85,31 @@ export default function App() {
           minHeight: "100vh",
           background: "darkgreen",
           color: "white",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          paddingTop: "50px",
+          padding: "30px",
           fontFamily: "Arial",
         }}
       >
-        <h1>🃏 Konkan Room</h1>
+        <h1>🃏 Konkan Online</h1>
 
-        <h2>Welcome {name}</h2>
+        <h2>Room: {roomCode}</h2>
 
-        <h3>Room Code: {roomCode}</h3>
+        <h3>Players:</h3>
 
-        <div
-          style={{
-            display: "flex",
-            gap: "20px",
-            marginTop: "40px",
-          }}
-        >
+        {players.map((player, index) => (
           <div
+            key={index}
             style={{
-              width: "120px",
-              height: "170px",
               background: "white",
-              borderRadius: "20px",
               color: "black",
-              fontSize: "40px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              padding: "12px",
+              borderRadius: "10px",
+              marginTop: "10px",
+              fontWeight: "bold",
             }}
           >
-            ♠️
+            👤 {player}
           </div>
-
-          <div
-            style={{
-              width: "120px",
-              height: "170px",
-              background: "white",
-              borderRadius: "20px",
-              color: "black",
-              fontSize: "40px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            ❤️
-          </div>
-        </div>
+        ))}
       </div>
     );
   }
